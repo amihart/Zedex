@@ -1,5 +1,5 @@
 # Zedex
-Zilog Z80 Interpreter. The interpreter supports putchar(), getchar(), command line arguments, return values, and arbitrary Linux system calls.
+Zilog Z80 Interpreter. The interpreter supports `putchar()`, `getchar()`, command line arguments, return values, and arbitrary Linux system calls.
 
 ## Compiling C Programs for Zedex
 
