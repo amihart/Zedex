@@ -55,7 +55,7 @@ esac
 
 cat .tmpu | awk '{ print -length($1), $0 }' "$@" | sort -n -s | cut -d" " -f2->.tmps
 
-rm -f unistd.h zedexconf
+rm -f unistd.h
 while IFS= read -r line
 do
 	name=$(echo $line | cut -d' ' -f1)
@@ -64,7 +64,6 @@ do
 	if [ "$id" != "" ] && [ "$name" != "" ]
 	then
 		echo "#define $name $id" >> unistd.h
-		echo "$id $arg" >> zedexconf
 	fi
 done < .template
 rm -f .tmp*
