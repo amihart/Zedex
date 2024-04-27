@@ -179,7 +179,7 @@ int main(int argc, char **argv)
 
 	//Run the program
 	z_Run(&mm, 0x0000);
-
+	z_FreeMachine(&mm);
 	free(CALL_TABLE);
 	return 0;
 }
