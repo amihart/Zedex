@@ -12,8 +12,8 @@ To create a program for the interpreter, write a C program as you normally would
 
 int main()
 {
-  printf("Hello, World!\n");
-  return 0;
+	printf("Hello, World!\n");
+	return 0;
 }
 ```
 
@@ -50,7 +50,7 @@ If the utility you are developing needs more features than standard input, stand
 
 void main()
 {
-  char str[] = "Hello, World!\n";
+	  char str[] = "Hello, World!\n";
 	syscall(__NR_write, 1, str, sizeof(str));
 }
 ```
