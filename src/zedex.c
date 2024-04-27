@@ -4,7 +4,7 @@
 #include <zeditty.h>
 #include <unistd.h>
 #include <sys/syscall.h>
-uint16_t *CALL_TABLE;
+uint64_t *CALL_TABLE;
 uint16_t CALL_TABLE_SIZE;
 uint16_t CALL_ARGV;
 uint16_t CALL_ARGC;
@@ -92,7 +92,7 @@ int load_table()
 		if (c == '\n')
 		{
 			a |= 1 << (n - 1);
-			CALL_TABLE = realloc(CALL_TABLE, sizeof(uint16_t) * (CALL_TABLE_SIZE + 2));
+			CALL_TABLE = realloc(CALL_TABLE, sizeof(uint64_t) * (CALL_TABLE_SIZE + 2));
 			CALL_TABLE[CALL_TABLE_SIZE + 0] = s;
 			CALL_TABLE[CALL_TABLE_SIZE + 1] = a;
 			CALL_TABLE_SIZE += 2;
