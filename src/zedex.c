@@ -12,7 +12,7 @@ void ports_out(z_Machine *mm, unsigned char port, unsigned char value)
 {
 	unsigned short argc;
 	unsigned short addr;
-	uint64_t argv[7];
+	uint64_t argv[8];
 	switch (port)
 	{
 		case 0:
