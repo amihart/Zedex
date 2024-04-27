@@ -1,5 +1,5 @@
 DOWNLOAD=$(shell cat .git/config | grep url | sed 's/.*=//;s/Zedex/Zeditty/')
-CFLAGS += -IZeditty/include
+CFLAGS += -IZeditty/include -std=gnu99
 LDFLAGS += -LZeditty/lib -lzeditty
 all:
 	sh -c 'which sdcc || (echo Please install: sdcc && exit 1)'

@@ -10,14 +10,14 @@ uint16_t CALL_ARGV;
 uint16_t CALL_ARGC;
 void ports_out(z_Machine *mm, unsigned char port, unsigned char value)
 {
+	unsigned short argc;
+	unsigned short addr;
+	uint64_t argv[7];
 	switch (port)
 	{
 		case 0:
-			unsigned short argc;
-			unsigned short addr;
 			z_GetReg(mm, z_REG_HL, &argc);
 			z_GetReg(mm, z_REG_DE, &addr);
-			uint64_t argv[7];
 			for (int i = 0; i < 8; i++)
 			{
 				if (i >= argc)
