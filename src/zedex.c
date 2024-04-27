@@ -5,8 +5,7 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 #define HEADER_SIZE 6
-uint64_t *CALL_TABLE;
-uint16_t CALL_TABLE_SIZE;
+extern uint64_t CALL_TABLE[];
 uint16_t CALL_ARGV;
 uint16_t CALL_ARGC;
 void ports_out(z_Machine *mm, unsigned char port, unsigned char value)
@@ -73,61 +72,8 @@ unsigned char ports_in(z_Machine *mm, unsigned char port)
 	return 0;
 }
 
-int load_table()
-{
-	FILE *f = fopen("/usr/share/zedexconf", "r");
-	if (!f)
-	{
-		return 0;
-	}
-	int p = 0;
-	int n = 0;
-	int c;
-	int b = 1;
-	int s = 0;
-	int a = 0;
-	CALL_TABLE = malloc(0);
-	CALL_TABLE_SIZE = 0;
-	while ( (c = fgetc(f)) != EOF )
-	{
-		if (c == '\n')
-		{
-			a |= 1 << (n - 1);
-			CALL_TABLE = realloc(CALL_TABLE, sizeof(uint64_t) * (CALL_TABLE_SIZE + 2));
-			CALL_TABLE[CALL_TABLE_SIZE + 0] = s;
-			CALL_TABLE[CALL_TABLE_SIZE + 1] = a;
-			CALL_TABLE_SIZE += 2;
-			b = 1;
-			n = 0;
-			a = 0;
-		}
-		else if (c == ' ')
-		{
-			if (b) s = n;
-			else a |= 1 << (n - 1);
-			p++;
-			n = 0;
-			b = 0;
-		}
-		else
-		{
-			n *= 10;
-			n += (c - '0');
-		}
-	}
-	fclose(f);
-	return 1;
-}
-
 int main(int argc, char **argv)
 {
-	if (!load_table())
-	{
-		printf("This software required a configuration\n");
-		printf("file stored at `/usr/share/regexconf`.\n");
-		return 1;
-	}
-
 	if (argc < 2)
 	{
 		fprintf(stderr, "Usage: %s [file]\n", argv[0]);
@@ -219,6 +165,5 @@ int main(int argc, char **argv)
 	//Run the program
 	z_Run(&mm, 0x0000);
 	z_FreeMachine(&mm);
-	free(CALL_TABLE);
 	return 0;
 }
