@@ -34,7 +34,7 @@ void ports_out(z_Machine *mm, unsigned char port, unsigned char value)
 					{
 						if ( (CALL_TABLE[i + 1] >> (j - 1))&1 )
 						{
-							argv[j] += (uint64_t)mm->MEM;
+							argv[j] += (uint64_t)((size_t)(mm->MEM));
 						}
 					}
 					break;
@@ -147,8 +147,6 @@ int main(int argc, char **argv)
 	//load argument data
 	uint16_t argtab[256];
 	uint8_t argtabL = 0;
-	size_t argl = 0;
-
 	uint16_t argstart = 3;
 	uint16_t argend = argstart + 128;
 
@@ -163,7 +161,7 @@ int main(int argc, char **argv)
 		}
 
 		pos -= l;
-		z_WriteData(&mm, pos, argv[i], l);
+		z_WriteData(&mm, pos, (unsigned char*)argv[i], l);
 		argtab[argtabL++] = pos;
 	}
 	pos -= argtabL * sizeof(uint16_t);
