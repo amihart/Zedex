@@ -17,9 +17,9 @@ all:
 	srec_cat ~tmp.hex -Intel -Output -Binary > arguments.z80
 	rm -f ~tmp*
 
-#	sdasz80 -o crt0.rel crt0.s
-#	sdcc crt0.rel -mz80 --no-std-crt0 hello.c -o ~tmp.hex -Iinclude
-#	@echo "Running test..."
-#	./interpret hello.z80 fish boi
+	sdcc ../bin/crt0.rel -mz80 --no-std-crt0 return_value.c -o ~tmp.hex -I../include
+	srec_cat ~tmp.hex -Intel -Output -Binary > return_value.z80
+	rm -f ~tmp*
+
 clean:
-	rm -f interpret crt0.rel hello.z80
+	rm -f *.z80

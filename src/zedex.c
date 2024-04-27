@@ -164,6 +164,11 @@ int main(int argc, char **argv)
 
 	//Run the program
 	z_Run(&mm, 0x0000);
+	
+	//Fetch the return value
+	uint16_t r;
+	z_GetReg(&mm, z_REG_DE, &r);
 	z_FreeMachine(&mm);
-	return 0;
+	
+	return (int)((int16_t)r);
 }

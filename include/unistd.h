@@ -1,3 +1,4 @@
+//Automatically generated for x86_64
 #define __NR_read 0
 #define __NR_write 1
 #define __NR_open 2
