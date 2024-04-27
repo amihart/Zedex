@@ -67,6 +67,7 @@ do
 		echo "$id $arg" >> zedexconf
 	fi
 done < .template
+rm -f .tmp*
 clear
 
 echo "Done."
