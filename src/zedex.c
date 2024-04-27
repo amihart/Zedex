@@ -4,6 +4,7 @@
 #include <zeditty.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#define HEADER_SIZE 6
 uint64_t *CALL_TABLE;
 uint16_t CALL_TABLE_SIZE;
 uint16_t CALL_ARGV;
@@ -146,17 +147,48 @@ int main(int argc, char **argv)
 		fprintf(stderr, "File `%s` not found.\n", argv[1]);
 		exit(1);
 	}
+
+	unsigned char header[HEADER_SIZE];
 	for (int c, i = 0; (c = fgetc(f)) != EOF; i++)
 	{
+		if (i == 65536)
+		{
+			z_FreeMachine(&mm);
+			fclose(f);
+			fprintf(stderr, "Error: File too large.\n");
+			exit(1);
+		}
 		unsigned char b = (unsigned char)c;
 		z_WriteData(&mm, i, &b, 1);
+		if (i < HEADER_SIZE)
+		{
+			header[i] = b;
+		}
 	}
 	fclose(f);
+
+	int version = 0;
+	if (header[0] == 0xC3 && header[3] == 0x5A && header[4] == 0x58)
+	{
+		version = (int)header[5];
+		if (version != 2)
+		{
+			fprintf(stderr, "Error: Unsupported CRT0 version.\n");
+			z_FreeMachine(&mm);
+			exit(1);
+		}
+	}
+	else
+	{
+		fprintf(stderr, "Error: Bad magic number.\n");
+		z_FreeMachine(&mm);
+		exit(1);
+	}
 
 	//load argument data
 	uint16_t argtab[256];
 	uint8_t argtabL = 0;
-	uint16_t argstart = 3;
+	uint16_t argstart = HEADER_SIZE;
 	uint16_t argend = argstart + 128;
 
 	uint16_t pos = argend;

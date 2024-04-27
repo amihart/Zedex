@@ -2,6 +2,7 @@
 	.area _HEADER (ABS)
 	.org 0
 	jp _init
+	.db 'Z', 'X', 2
 	.ds 128
 _init:
 	in a, (2)
