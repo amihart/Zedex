@@ -34,13 +34,22 @@ void ports_out(z_Machine *mm, unsigned char port, unsigned char value)
 					{
 						if ( (CALL_TABLE[i + 1] >> (j - 1))&1 )
 						{
-							argv[j] += (uint64_t)((size_t)(mm->MEM));
+							argv[j] += (uint64_t)((long)(mm->MEM));
 						}
 					}
 					break;
 				}
 			}
-			syscall(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5], argv[6]);
+			syscall
+			(
+				(long)argv[0],
+				(long)argv[1],
+				(long)argv[2],
+				(long)argv[3],
+				(long)argv[4],
+				(long)argv[5],
+				(long)argv[6]
+			);
 		break;
 		case 0x01: putchar(value); break;
 		case 0xFF: z_Stop(mm); break;
