@@ -27,6 +27,7 @@ Here, we compile to a `~tmp.hex` file because `sdcc` will produce many files we 
 
 ```sh
 srec_cat ~tmp.hex -Intel -Output -Binary > hello_world.z80
+rm ~tmp*
 ```
 
 Once a program is compiled, it can then be ran simply by passing it in as an argument to the interpeter.
