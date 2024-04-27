@@ -37,7 +37,7 @@ $ zedex hello_world.z80
 Hello, World!
 ```
 
-Anything after the first command-line argument for `zedex` (the first command-line argument is the file name to run) will be passed in as command-line arguments to the interpreted program. The `zedex` command will also return with the return value set by the executed program.
+Anything after the first command-line argument for `zedex` (the first command-line argument is the file name to run) will be passed in as command-line arguments to the interpreted program (which can be accessed using the `int main(int argc, char** argv)` function signature). The `zedex` command will also return with the return value set by the executed program.
 
 
 ## Linux System Calls
