@@ -55,4 +55,4 @@ void main()
 }
 ```
 
-System calls require a valid `unistd.h` header file. The `conf/autogen.sh` script can assist you in creating one for your machine, but there is already a `unistd.h.x86_64` file in the repository that simply needs to be renamed to `unistd.h` and moved to the `includes/` folder. You sometimes might just be able to include the `/usr/include/asm-generic/unistd.h` file on your system, but sometimes I find this does not have the correct values. 
+System calls require a valid `unistd.h` header file. The `unistdgen.sh` script can assist you in creating one for your machine, but there is already a `unistd.h.x86_64` file in the repository that simply needs to be renamed to `unistd.h` and moved to the `includes/` folder. You sometimes might just be able to include the `/usr/include/asm-generic/unistd.h` file on your system, but sometimes I find this does not have the correct values. 
